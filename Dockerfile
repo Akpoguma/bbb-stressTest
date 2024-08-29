@@ -1,4 +1,5 @@
-FROM node:10-slim as core
+# ---- Base Node ----
+FROM node:16-bullseye as core
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
@@ -22,7 +23,7 @@ RUN chmod g=u /etc/passwd
 # We wrap commands run in this container by the following entrypoint that
 # creates a user on-the-fly with the container user ID (see USER) and root group
 # ID.
-ENTRYPOINT [ "/usr/local/bin/entrypoint" ]
+ENTRYPOINT ["/usr/local/bin/entrypoint"]
 
 # Un-privileged user running the application
 ARG DOCKER_USER=1000
