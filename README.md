@@ -10,9 +10,9 @@ It simulates client activity in a BBB conference thanks to [Puppeteer](https://p
 
 ### Preparation
 
-1) Clone this repository
-run:sudo apt install make
-run:  yarn install
+1) Clone this repository (run:sudo apt install make
+run:  sudo apt install cmdtest)
+
 
 
 2) Run `make bootstrap`
