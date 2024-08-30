@@ -11,8 +11,8 @@
   ENV PUPPETEER_PRODUCT=firefox
   ENV PUPPETEER_DOWNLOAD_HOST=https://github.com/puppeteer/puppeteer/releases/download
   
-  # Install Yarn globally
-  RUN npm install -g yarn
+  # Install Yarn only if it is not already installed
+  RUN if ! command -v yarn > /dev/null; then npm install -g yarn; fi
   
   # Use Yarn to install Puppeteer
   RUN yarn add puppeteer
