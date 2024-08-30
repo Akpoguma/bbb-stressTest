@@ -1,11 +1,18 @@
 # ---- Base Node ----
   FROM node:16-bullseye as core
 
-  # Install latest Firefox and dependencies to support Puppeteer
+  # Install Firefox and dependencies to support Puppeteer
   RUN apt-get update \
       && apt-get install -y wget gnupg firefox-esr fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf \
         --no-install-recommends \
       && rm -rf /var/lib/apt/lists/*
+  
+  # Set environment variables to ensure Puppeteer uses Firefox
+  ENV PUPPETEER_PRODUCT=firefox
+  ENV PUPPETEER_DOWNLOAD_HOST=https://github.com/puppeteer/puppeteer/releases/download
+  
+  # Install Puppeteer and ensure the Firefox binary is downloaded
+  RUN npm install puppeteer --unsafe-perm=true
   
   COPY ./docker/files/usr/local/bin/entrypoint /usr/local/bin/entrypoint
   
@@ -40,10 +47,7 @@
   COPY . /app/
   WORKDIR /app/
   
-  # Do not download the Chromium version bundled with Puppeteer
-  # We are using Firefox instead
-  ENV PUPPETEER_PRODUCT=firefox
-  
+  # Install dependencies using Yarn and ensure the Firefox binary is used
   RUN yarn install --frozen-lockfile
   
   ARG DOCKER_USER=1000
