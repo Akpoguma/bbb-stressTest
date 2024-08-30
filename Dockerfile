@@ -11,6 +11,9 @@
   ENV PUPPETEER_PRODUCT=firefox
   ENV PUPPETEER_DOWNLOAD_HOST=https://github.com/puppeteer/puppeteer/releases/download
   
+  # Clear npm cache to avoid "Tracker idealTree already exists" error
+  RUN npm cache clean --force
+  
   # Install Puppeteer and ensure the Firefox binary is downloaded
   RUN npm install puppeteer --unsafe-perm=true
   
