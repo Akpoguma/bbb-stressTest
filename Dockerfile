@@ -1,5 +1,5 @@
 # ---- Base Node ----
-  FROM node:16-bullseye as core
+  FROM node:18-bullseye as core  # Updated to Node.js 18
 
   # Install Firefox and dependencies to support Puppeteer
   RUN apt-get update \
